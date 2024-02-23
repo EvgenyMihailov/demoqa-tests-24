@@ -4,13 +4,11 @@ package guru.qa;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationForm {
 
@@ -19,12 +17,15 @@ public class RegistrationForm {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.holdBrowserOpen = true;
+        //Configuration.holdBrowserOpen = true;
         Configuration.timeout = 5000; // default 4000
+
     }
+
 
     @Test
     void fillFormTest() {
+
         open("/automation-practice-form");
         //Name
         $("#firstName").setValue("Alex");
@@ -79,5 +80,7 @@ public class RegistrationForm {
         $(".table-responsive").shouldHave(text("after.jpg"));
         $(".table-responsive").shouldHave(text("Some street 1"));
         $(".table-responsive").shouldHave(text("NCR Delhi"));
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
     }
 }
